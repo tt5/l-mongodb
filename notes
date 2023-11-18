@@ -1,0 +1,10 @@
+bunx prisma db push
+podman run -p 27017:27017 --name mongo -d mongodb/mongodb-community-server:latest
+
+use one
+show collections
+db.Users.find().pretty().limit(5)
+podman exec -it mongo mongosh
+
+podman run -p 27017:27017 --name mongo1 -e 'MONGO_INITDB_ROOT_USERNAME=root' -e 'MONGO_INITDB_ROOT_PASSWORD=password' -e 'MONGO_INITDB_DATABASE=one' -d docker.io/mongo:4
+podman run -p 27018:27018 --name mongo mongo
